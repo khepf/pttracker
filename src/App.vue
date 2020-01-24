@@ -1,32 +1,31 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <the-navbar />
+
+    <v-content>
+      <login-card />
+    </v-content>
+    <the-footer />
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import Vue from "vue";
 
-#nav {
-  padding: 30px;
+import TheNavbar from "./components/TheNavbar.vue";
+import LoginCard from "./components/LoginCard.vue";
+import TheFooter from "./components/TheFooter.vue";
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+export default Vue.extend({
+  name: "App",
+  components: {
+    TheNavbar,
+    LoginCard,
+    TheFooter
+  },
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+  data: () => ({
+    //
+  })
+});
+</script>
