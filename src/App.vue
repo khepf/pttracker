@@ -3,7 +3,7 @@
     <the-navbar />
 
     <v-content>
-      <login-card />
+      <router-view></router-view>
     </v-content>
     <the-footer />
   </v-app>
@@ -20,7 +20,6 @@ export default Vue.extend({
   name: "App",
   components: {
     TheNavbar,
-    LoginCard,
     TheFooter
   },
 
