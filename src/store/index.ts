@@ -54,11 +54,19 @@ export default new Vuex.Store({
     },
     signInWithEmailAndPassword(context, { email, password }) {
       return firebase.auth().signInWithEmailAndPassword(email, password);
+    },
+    signOut({ commit }) {
+      return firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          commit("setAuthId", null);
+        });
     }
   },
   getters: {
     authUser(state: any) {
-      state.authId ? state.users[state.authId] : null;
+      return state.authId ? state.users[state.authId] : null;
     }
   },
   modules: {}
