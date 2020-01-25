@@ -11,13 +11,13 @@ export default new Vuex.Store({
   },
   mutations: {
     setItem(state, { item, id, resource }) {
-      item['.key'] = id
-      Vue.set(state[resource], id, item)
+      item[".key"] = id;
+      Vue.set(state[resource], id, item);
     },
 
     setAuthId(state, id) {
-      state.authId = id
-    },
+      state.authId = id;
+    }
   },
   actions: {
     fetchItem({ state, commit }, { id, emoji, resource }) {
@@ -41,7 +41,7 @@ export default new Vuex.Store({
     fetchItems({ dispatch }, { ids, resource, emoji }) {
       ids = Array.isArray(ids) ? ids : Object.keys(ids);
       return Promise.all(
-        ids.map(id => dispatch("fetchItem", { id, resource, emoji }))
+        ids.map((id: any) => dispatch("fetchItem", { id, resource, emoji }))
       );
     },
     fetchUser: ({ dispatch }, { id }) =>

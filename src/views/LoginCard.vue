@@ -37,7 +37,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-export default {
+import { IFirebaseError } from "@/interfaces/interfaces";
+export default Vue.extend({
   name: "LoginCard",
   data() {
     return {
@@ -59,8 +60,10 @@ export default {
           password: this.form.password
         })
         .then(() => this.$router.push("/dashboard"))
-        .catch(error => alert("🤷‍️" + error.message));
+        .catch((error: IFirebaseError) => {
+          return alert("🤷‍️" + error.message);
+        });
     }
   }
-};
+});
 </script>
