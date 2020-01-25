@@ -7,7 +7,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     users: {},
-    authId: null
+    authId: null,
+    players: {},
+    teams: {}
   },
   mutations: {
     setItem(state, { item, id, resource }) {

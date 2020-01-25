@@ -1,13 +1,30 @@
 <template>
   <div>
-    <h1>Dashboard</h1>
-    <v-data-table
+    <h3>{{ user ? user.email : "Your" }} Dashboard:</h3>
+    <h3>Your Teams</h3>
+    <div v-for="team in teams" :key="team['.key']">
+      <h2>{{ team.teamname }}</h2>
+      <div v-for="playerId in team.players" :key="playerId['.key']">
+        <p>{{ players[playerId].firstname }}</p>
+        <p>{{ players[playerId].lastname }}</p>
+      </div>
+    </div>
+    <!-- <v-data-table
+      :headers="pHeaders"
+      :items="Object.values(players)"
+      :items-per-page="5"
+      class="elevation-1"
+      group-key="team"
+    >
+    </v-data-table> -->
+
+    <!-- <v-data-table
       :headers="headers"
       :items="desserts"
       :items-per-page="5"
       class="elevation-1"
       @click:row="selectRow"
-    ></v-data-table>
+    ></v-data-table> -->
     <v-snackbar v-model="snackbar">
       You have selected {{ currentItem }}
       <v-btn color="pink" text @click="snackbar = false">
@@ -19,6 +36,9 @@
 
 <script lang="ts">
 import Vue from "vue";
+import firebase from "firebase";
+const sourceData = require("@/data/data.json");
+console.log("data!!!!", sourceData);
 
 interface DashBoardEvent {
   name: string;
@@ -31,6 +51,11 @@ interface DashBoardEvent {
 
 const DashboardPage = Vue.extend({
   name: "DashboardPage",
+  computed: {
+    user() {
+      return this.$store.getters.authUser;
+    }
+  },
   data() {
     return {
       currentItem: "",
@@ -65,10 +90,32 @@ const DashboardPage = Vue.extend({
           protein: 4.3,
           iron: "1%"
         }
-        // The rest of the data was removed
-        // to shorten the length of the code sample
-        // in this article
-      ]
+      ],
+      pHeaders: [
+        {
+          text: "First Name",
+          align: "left",
+          sortable: false,
+          value: "firstname"
+        },
+        {
+          text: "Last Name",
+          align: "left",
+          sortable: false,
+          value: "lastname"
+        }
+      ],
+      tHeaders: [
+        {
+          text: "Team Name",
+          align: "left",
+          sortable: false,
+          value: "teamname"
+        }
+      ],
+      players: sourceData.players,
+      teams: sourceData.teams,
+      users: sourceData.users
     };
   },
   methods: {

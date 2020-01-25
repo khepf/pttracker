@@ -1,0 +1,104 @@
+{
+  "players": {
+    "p1": {
+      ".key": "p1",
+      "firstname": "Emily",
+      "lastname": "Kepf",
+      "jerseynumber": 10,
+      "teams": {
+        "t1": "t1"
+      },
+      "userId": "u1"
+    },
+    "p2": {
+      ".key": "p2",
+      "firstname": "Audrey",
+      "lastname": "Kepf",
+      "jerseynumber": 55,
+      "teams": {
+        "t2": "t2"
+      },
+      "userId": "u1"
+    },
+    "p3": {
+      ".key": "p3",
+      "firstname": "Ella",
+      "lastname": "Wieslander",
+      "jerseynumber": 40,
+      "teams": {
+        "t2": "t2"
+      },
+      "userId": "u1"
+    },
+    "p4": {
+      ".key": "p4",
+      "firstname": "Grace",
+      "lastname": "Chapman",
+      "jerseynumber": 30,
+      "teams": {
+        "t2": "t2"
+      },
+      "userId": "u1"
+    },
+    "p5": {
+      ".key": "p5",
+      "firstname": "Ameilia",
+      "lastname": "Finn",
+      "jerseynumber": 11,
+      "teams": {
+        "t1": "t1"
+      },
+      "userId": "u1"
+    },
+    "p6": {
+      ".key": "p6",
+      "firstname": "Ava",
+      "lastname": "Hall",
+      "jerseynumber": 8,
+      "teams": {
+        "t1": "t1"
+      },
+      "userId": "u1"
+    }
+  },
+  "teams": {
+    "t1": {
+      ".key": "t1",
+      "teamname": "CUSE G12 Arsenal/Barcelona",
+      "players": {
+        "p1": "p1",
+        "p5": "p5",
+        "p6": "p6"
+      },
+      "userId": "u1"
+    },
+    "t2": {
+      ".key": "t2",
+      "teamname": "CUSE 10G Fiorentina",
+      "players": {
+        "p2": "p2",
+        "p3": "p3",
+        "p4": "p4"
+      },
+      "userId": "u1"
+    }
+  },
+  "users": {
+    "u1": {
+      ".key": "u1",
+      "name": "Jeremy",
+      "players": {
+        "p1": "p1",
+        "p2": "p2",
+        "p3": "p3",
+        "p4": "p4",
+        "p5": "p5",
+        "p6": "p6"
+      },
+      "teams": {
+        "t1": "t1",
+        "t2": "t2"
+      }
+    }
+  }
+}
