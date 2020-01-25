@@ -1,4 +1,4 @@
-![Playing Time Tracker](src/assets/ptguy.png?raw=true)
+![Playing Time Tracker](src/assets/ptguy.png?raw=true,width=200)
 
 ### A Web Application for tracking playing time in soccer games
 
