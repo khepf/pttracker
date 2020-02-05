@@ -1,15 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import firebase from "firebase";
+import sourceData from "@/data/data.json";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    users: {},
+    users: sourceData.users,
     authId: null,
-    players: {},
-    teams: {}
+    players: sourceData.players,
+    teams: sourceData.teams
   },
   mutations: {
     setItem(state, { item, id, resource }) {
@@ -19,6 +20,24 @@ export default new Vuex.Store({
 
     setAuthId(state, id) {
       state.authId = id;
+    },
+
+    // the set method needs 3 arguments:
+    // 1 The Object to add the new property to
+    // 2. The property name
+    // 3. The value of the property
+
+    setPlayer(state, { player, playerId }) {
+      Vue.set(state.players, playerId, player);
+    },
+
+    appendPlayerToTeam(state, { playerId, teamId }) {
+      const team = state.teams[teamId];
+      Vue.set(team.players, playerId, playerId);
+    },
+    appendPlayerToUser(state, { playerId, userId }) {
+      const user = state.users[userId];
+      Vue.set(user.players, playerId, playerId);
     }
   },
   actions: {
@@ -46,8 +65,15 @@ export default new Vuex.Store({
         ids.map((id: any) => dispatch("fetchItem", { id, resource, emoji }))
       );
     },
+
     fetchUser: ({ dispatch }, { id }) =>
       dispatch("fetchItem", { resource: "users", id, emoji: "🙋" }),
+    createPlayer(context, player) {
+      const playerId = "greatPlayer" + Math.random();
+      context.commit("setPlayer", { player, playerId });
+      context.commit("appendPlayerToTeam", { teamId: player.teamId, playerId });
+      context.commit("appendPlayerToUser", { teamId: player.userId, playerId });
+    },
     fetchAuthUser({ dispatch, commit }) {
       const userId = firebase.auth().currentUser.uid;
       return dispatch("fetchUser", { id: userId }).then(() => {
