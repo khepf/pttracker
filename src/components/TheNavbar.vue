@@ -35,6 +35,10 @@ export default Vue.extend({
         {
           label: "Dashboard",
           url: "/dashboard"
+        },
+        {
+          label: "Profile",
+          url: "/profile"
         }
       ]
     };

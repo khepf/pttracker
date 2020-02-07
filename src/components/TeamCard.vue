@@ -1,9 +1,8 @@
 <template>
   <v-container>
     <v-simple-table height="auto">
-      <h3>Your Teams</h3>
-      <v-btn text
-        rounded>Add Team</v-btn>
+      <h3>Your {{ teamCount }} Teams</h3>
+      <v-btn text rounded>Add Team</v-btn>
       <template>
         <div v-for="team in teams" :key="team['.key']">
           <h2>{{ team.teamname }}</h2>
@@ -28,6 +27,7 @@
 <script lang="ts">
 import Vue from "vue";
 import firebase from "firebase";
+import { countObjectProperties } from "@/utils/index";
 
 const TeamCard = Vue.extend({
   name: "TeamCard",
@@ -40,6 +40,9 @@ const TeamCard = Vue.extend({
     },
     users() {
       return this.$store.state.users;
+    },
+    teamCount() {
+      return countObjectProperties(this.users.teams);
     }
   }
 });

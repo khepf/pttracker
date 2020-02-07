@@ -39,7 +39,7 @@
 import Vue from "vue";
 import { IFirebaseError } from "@/interfaces/interfaces";
 export default Vue.extend({
-  name: "LoginCard",
+  name: "LoginPage",
   data() {
     return {
       showPassword: false,

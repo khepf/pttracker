@@ -38,6 +38,10 @@ export default new Vuex.Store({
     appendPlayerToUser(state, { playerId, userId }) {
       const user = state.users[userId];
       Vue.set(user.players, playerId, playerId);
+    },
+
+    setUser(state, { user, userId }) {
+      Vue.set(state.users, userId, user);
     }
   },
   actions: {
@@ -68,11 +72,17 @@ export default new Vuex.Store({
 
     fetchUser: ({ dispatch }, { id }) =>
       dispatch("fetchItem", { resource: "users", id, emoji: "🙋" }),
+
+    updateUser({ commit }, user) {
+      commit("setUser", { userId: user[".key"], user });
+    },
+
     createPlayer(context, player) {
       const playerId = "greatPlayer" + Math.random();
+      player[".key"] = playerId;
       context.commit("setPlayer", { player, playerId });
       context.commit("appendPlayerToTeam", { teamId: player.teamId, playerId });
-      context.commit("appendPlayerToUser", { teamId: player.userId, playerId });
+      context.commit("appendPlayerToUser", { userId: player.userId, playerId });
     },
     fetchAuthUser({ dispatch, commit }) {
       const userId = firebase.auth().currentUser.uid;

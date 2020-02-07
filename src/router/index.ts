@@ -1,34 +1,39 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import HomePage from "../views/HomePage.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home
+    name: "HomePage",
+    component: HomePage
   },
   {
     path: "/about",
-    name: "about",
-    component: () => import(/* webpackChunkName: "about" */ "@/views/About.vue")
+    name: "AboutPage",
+    component: () => import(/* webpackChunkName: "about" */ "@/views/AboutPage.vue")
   },
   {
     path: "/login",
-    name: "login",
-    component: () => import("@/views/LoginCard.vue")
+    name: "LoginPage",
+    component: () => import("@/views/LoginPage.vue")
   },
   {
     path: "/dashboard",
-    name: "dashboard",
-    component: () => import("@/views/Dashboard.vue")
+    name: "DashboardPage",
+    component: () => import("@/views/DashboardPage.vue")
+  },
+  {
+    path: "/profile",
+    name: "ProfilePage",
+    component: () => import("@/views/ProfilePage.vue")
   },
   {
     path: "*",
-    name: "notfound",
-    component: () => import("@/views/NotFound.vue")
+    name: "NotFoundPage",
+    component: () => import("@/views/NotFoundPage.vue")
   }
 ];
 

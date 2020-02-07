@@ -1,7 +1,13 @@
-export interface RootState {
-  users: string | null;
-  authId: string | null;
+export interface IPlayer {
+  key: string;
+  firstname: string;
+  lastname: string;
+  jerseynumber: number;
+  teams: object;
+  userId: string;
+
 }
+
 
 export interface IFirebaseError {
   code: string;
