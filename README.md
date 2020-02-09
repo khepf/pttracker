@@ -2,7 +2,7 @@
 
 ### A Web Application for tracking playing time in soccer games
 
-- Finish setup for addPlayer: 27 - 4.42
+- start at 66
 
 
 #### easy stuff
