@@ -25,7 +25,10 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapActions } from "vuex";
 import { countObjectProperties } from "@/utils/index";
+
+import { IState, IUser, IPlayer, ITeam } from "@/interfaces/interfaces";
 
 const TeamCard = Vue.extend({
   name: "TeamCard",
@@ -47,6 +50,8 @@ const TeamCard = Vue.extend({
     }
   },
   methods: {
+    ...mapActions(["fetchUser", "fetchTeams", "fetchPlayers"]),
+
     getPlayersFromEachTeam(teamId) {
       return this.players.filter(player => {
         return Object.values(player.teams).includes(teamId);
@@ -61,11 +66,11 @@ const TeamCard = Vue.extend({
     }
   },
   async created() {
-    await this.$store.dispatch("fetchUser", { id: "u1" });
-    await this.$store.dispatch("fetchTeams", {
+    await this.fetchUser({ id: "u1" });
+    await this.fetchTeams({
       ids: Object.keys(this.user.teams)
     });
-    await this.$store.dispatch("fetchPlayers", {
+    await this.fetchPlayers({
       ids: Object.keys(this.user.players)
     });
   }

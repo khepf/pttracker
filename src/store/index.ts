@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import firebase from "firebase";
+import { IState, IUser, IPlayer, ITeam } from "@/interfaces/interfaces";
 
 Vue.use(Vuex);
 
@@ -12,8 +13,11 @@ export default new Vuex.Store({
     authId: null
   },
   actions: {
-    fetchItem({ state, commit }, { id, emoji, resource }) {
-      console.log("🔥‍", emoji, id, resource);
+    fetchItem(
+      { state, commit }: { state: IState; commit: any },
+      { id, emoji, resource }: { id: string; emoji: string; resource: string }
+    ) {
+      console.log("!🔥!‍", emoji, id, resource);
       return new Promise((resolve, reject) => {
         firebase
           .database()
@@ -34,7 +38,7 @@ export default new Vuex.Store({
     fetchItems({ dispatch }, { ids, resource, emoji }) {
       ids = Array.isArray(ids) ? ids : Object.keys(ids);
       return Promise.all(
-        ids.map((id: any) => dispatch("fetchItem", { id, resource, emoji }))
+        ids.map((id: string) => dispatch("fetchItem", { id, resource, emoji }))
       );
     },
     // USERS
@@ -119,19 +123,18 @@ export default new Vuex.Store({
     // 3. The value of the property
 
     appendPlayerToTeam(state, { playerId, teamId }) {
-      const team = state.teams[teamId];
+      const team: ITeam = state.teams[teamId];
       Vue.set(team.players, playerId, playerId);
     },
     appendPlayerToUser(state, { playerId, userId }) {
-      const user = state.users[userId];
+      const user: IUser = state.users[userId];
       Vue.set(user.players, playerId, playerId);
     }
   },
 
   getters: {
-    authUser(state: any) {
-      // return state.authId ? state.users[state.authId] : null;
-      return {};
+    authUser(state) {
+      return state.authId ? state.users[state.authId] : null;
     }
   },
   modules: {}
