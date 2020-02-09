@@ -1,21 +1,20 @@
 <template>
-  <v-container>
+  <v-container v-if="user">
     <v-simple-table height="auto">
-      <h3>Your {{ teamCount }} Teams</h3>
+      <h3>Your Teams</h3>
       <v-btn text rounded>Add Team</v-btn>
-      <template>
+      <template v-if="teams">
         <div v-for="team in teams" :key="team['.key']">
-          <h2>{{ team.teamname }}</h2>
           <thead>
             <tr>
-              <th class="text-left">First Name</th>
-              <th class="text-left">Last Name</th>
+              <th class="text-left">Team Name</th>
+              <th class="text-left">Players</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="playerId in team.players" :key="playerId['.key']">
-              <td>{{ players[playerId].firstname }}</td>
-              <td>{{ players[playerId].lastname }}</td>
+            <tr>
+              <td>{{ team.teamname }}</td>
+              <td>{{ getPlayerInformation(team[".key"]) }}</td>
             </tr>
           </tbody>
         </div>
@@ -26,24 +25,49 @@
 
 <script lang="ts">
 import Vue from "vue";
-import firebase from "firebase";
 import { countObjectProperties } from "@/utils/index";
 
 const TeamCard = Vue.extend({
   name: "TeamCard",
   computed: {
-    players() {
-      return this.$store.state.players;
+    user() {
+      return this.$store.state.users.u1;
     },
     teams() {
-      return this.$store.state.teams;
+      const teamIds = Object.values(this.user.teams);
+      return Object.values(this.$store.state.teams).filter(team =>
+        teamIds.includes(team[".key"])
+      );
     },
-    users() {
-      return this.$store.state.users;
-    },
-    teamCount() {
-      return countObjectProperties(this.users.teams);
+    players() {
+      const playerIds = Object.values(this.user.players);
+      return Object.values(this.$store.state.players).filter(player =>
+        playerIds.includes(player[".key"])
+      );
     }
+  },
+  methods: {
+    getPlayersFromEachTeam(teamId) {
+      return this.players.filter(player => {
+        return Object.values(player.teams).includes(teamId);
+      });
+    },
+    getPlayerInformation(teamId) {
+      return this.getPlayersFromEachTeam(teamId)
+        .map(player => {
+          return `#${player.jerseynumber} ${player.firstname} ${player.lastname}`;
+        })
+        .toString();
+    }
+  },
+  async created() {
+    await this.$store.dispatch("fetchUser", { id: "u1" });
+    await this.$store.dispatch("fetchTeams", {
+      ids: Object.keys(this.user.teams)
+    });
+    await this.$store.dispatch("fetchPlayers", {
+      ids: Object.keys(this.user.players)
+    });
   }
 });
 export default TeamCard;

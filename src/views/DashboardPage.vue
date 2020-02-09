@@ -2,7 +2,7 @@
   <div>
     <h3>{{ user ? user.email : "Your" }} Dashboard:</h3>
     <team-card />
-    <player-card />
+    <!-- <player-card /> -->
   </div>
 </template>
 
@@ -10,13 +10,13 @@
 import Vue from "vue";
 import firebase from "firebase";
 import TeamCard from "@/components/TeamCard.vue";
-import PlayerCard from "@/components/PlayerCard.vue";
+// import PlayerCard from "@/components/PlayerCard.vue";
 
 const DashboardPage = Vue.extend({
   name: "DashboardPage",
   components: {
     TeamCard,
-    PlayerCard
+    // PlayerCard
   },
   computed: {
     user() {
